@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Nhập | SportZone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #ff4d00;
+        --primary-light: #ff7733;
+        --primary-dark: #cc3d00;
+        --accent: #ffb300;
+        --dark: #0d0d1a;
+        --dark-2: #141428;
+        --dark-3: #1c1c35;
+        --white: #ffffff;
+        --gray-100: #f8f9fa;
+        --gray-200: #f0f0f5;
+        --gray-300: #e2e2ec;
+        --gray-500: #9999aa;
+        --gray-700: #444455;
+      }
+
+      body {
+        font-family: "Outfit", "Segoe UI", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        background: var(--dark);
+        overflow: hidden;
+      }
+
+      /* ===== KEYFRAMES ===== */
+      @keyframes float-1 {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-28px) rotate(180deg);
+        }
+      }
+      @keyframes float-2 {
+        0%,
+        100% {
+          transform: translateY(0) rotate(45deg);
+        }
+        50% {
+          transform: translateY(-18px) rotate(225deg);
+        }
+      }
+      @keyframes float-3 {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(18px) scale(1.08);
+        }
+      }
+      @keyframes pulse-ring {
+        0% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(1.9);
+          opacity: 0;
+        }
+      }
+      @keyframes slide-up {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes shimmer {
+        from {
+          left: -110%;
+        }
+        to {
+          left: 110%;
+        }
+      }
+
+      /* ===== LEFT PANEL ===== */
+      .left-panel {
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 48px;
+        overflow: hidden;
+        background: var(--dark-2);
+      }
+
+      /* Animated mesh gradient background */
+      .left-panel .bg-mesh {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 50% at 20% 20%,
+            rgba(255, 77, 0, 0.18) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 50% 40% at 80% 80%,
+            rgba(255, 179, 0, 0.1) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 40% 60% at 60% 10%,
+            rgba(120, 40, 200, 0.08) 0%,
+            transparent 60%
+          ),
+          var(--dark-2);
+        z-index: 0;
+      }
+
+      /* Floating shapes */
+      .shape {
+        position: absolute;
+        z-index: 0;
+      }
+      .shape-1 {
+        width: 220px;
+        height: 220px;
+        top: -60px;
+        right: -60px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 77, 0, 0.22),
+          rgba(255, 179, 0, 0.1)
+        );
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        animation: float-1 7s ease-in-out infinite;
+      }
+      .shape-2 {
+        width: 140px;
+        height: 140px;
+        bottom: 80px;
+        left: -50px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 179, 0, 0.18),
+          rgba(255, 77, 0, 0.07)
+        );
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        animation: float-2 9s ease-in-out infinite;
+      }
+      .shape-3 {
+        width: 76px;
+        height: 76px;
+        bottom: 200px;
+        right: 44px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        animation: float-3 5s ease-in-out infinite;
+      }
+      .shape-4 {
+        width: 48px;
+        height: 48px;
+        top: 180px;
+        left: 60px;
+        background: rgba(255, 77, 0, 0.13);
+        border-radius: 12px;
+        animation: float-2 6s ease-in-out infinite reverse;
+      }
+      .left-panel .grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          );
+        background-size: 48px 48px;
+        z-index: 0;
+      }
+
+      /* Brand */
+      .brand {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        margin-bottom: 44px;
+        animation: slide-up 0.7s ease backwards;
+      }
+      .brand-logo-wrap {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 20px;
+      }
+      .brand-logo-wrap::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        opacity: 0.3;
+        animation: pulse-ring 2.5s ease-out infinite;
+      }
+      .brand-logo {
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        box-shadow:
+          0 16px 40px rgba(255, 77, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        position: relative;
+      }
+      .brand-name {
+        font-size: 46px;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 1px;
+        line-height: 1;
+      }
+      .brand-name span {
+        color: var(--primary);
+      }
+      .brand-tagline {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 8px;
+        font-weight: 500;
+      }
+
+      /* Stat bar */
+      .stat-bar {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 18px;
+        backdrop-filter: blur(16px);
+        padding: 18px 10px;
+        margin-bottom: 24px;
+        width: 100%;
+        max-width: 360px;
+        animation: slide-up 0.7s 0.1s ease backwards;
+      }
+      .stat-item {
+        flex: 1;
+        text-align: center;
+        padding: 0 10px;
+      }
+      .stat-item + .stat-item {
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .stat-num {
+        font-size: 26px;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1;
+      }
+      .stat-num span {
+        color: var(--primary);
+      }
+      .stat-label {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.38);
+        margin-top: 4px;
+      }
+
+      /* Features */
+      .features {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        width: 100%;
+        max-width: 360px;
+        animation: slide-up 0.7s 0.2s ease backwards;
+      }
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+        cursor: default;
+      }
+      .feature-item:hover {
+        transform: translateX(8px);
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 77, 0, 0.3);
+      }
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .feature-icon.orange {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 77, 0, 0.3),
+          rgba(255, 119, 51, 0.12)
+        );
+        box-shadow: 0 4px 12px rgba(255, 77, 0, 0.2);
+      }
+      .feature-icon.blue {
+        background: linear-gradient(
+          135deg,
+          rgba(66, 153, 225, 0.3),
+          rgba(99, 179, 237, 0.12)
+        );
+        box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+      }
+      .feature-icon.green {
+        background: linear-gradient(
+          135deg,
+          rgba(72, 187, 120, 0.3),
+          rgba(104, 211, 145, 0.12)
+        );
+        box-shadow: 0 4px 12px rgba(72, 187, 120, 0.2);
+      }
+      .feature-text h4 {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .feature-text p {
+        color: rgba(255, 255, 255, 0.37);
+        font-size: 11.5px;
+        margin-top: 2px;
+      }
+
+      /* ===== RIGHT PANEL ===== */
+      .right-panel {
+        width: 500px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--white);
+        padding: 48px 52px;
+        position: relative;
+        overflow-y: auto;
+      }
+      .right-panel::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 77, 0, 0.05) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .login-box {
+        width: 100%;
+        max-width: 390px;
+        animation: slide-up 0.6s ease backwards;
+      }
+
+      /* Header */
+      .login-header {
+        margin-bottom: 28px;
+      }
+      .login-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        background: rgba(255, 77, 0, 0.08);
+        border: 1px solid rgba(255, 77, 0, 0.14);
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 14px;
+        letter-spacing: 0.2px;
+      }
+      .login-badge span {
+        font-size: 14px;
+      }
+      .login-header h2 {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--dark);
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+      }
+      .login-header p {
+        color: var(--gray-500);
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      .login-header p a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .login-header p a:hover {
+        text-decoration: underline;
+      }
+
+      /* Social */
+      .social-login {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 11px 12px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 12px;
+        background: var(--white);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: "Outfit", sans-serif;
+        transition: all 0.22s ease;
+      }
+      .social-btn:hover {
+        background: var(--gray-100);
+        border-color: #bbbbc8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+      }
+
+      /* Divider */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--gray-300);
+      }
+      .divider span {
+        color: #bbbbc8;
+        font-size: 12px;
+        white-space: nowrap;
+        font-weight: 500;
+      }
+
+      /* ===== FLOATING LABEL INPUTS ===== */
+      .form-group {
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .floating-label {
+        position: relative;
+      }
+      .floating-label input {
+        width: 100%;
+        padding: 22px 48px 10px 48px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 14px;
+        font-size: 14.5px;
+        font-weight: 500;
+        color: var(--dark);
+        background: var(--gray-100);
+        outline: none;
+        transition: all 0.25s ease;
+        font-family: "Outfit", sans-serif;
+        appearance: none;
+      }
+      .floating-label input:focus {
+        border-color: var(--primary);
+        background: var(--white);
+        box-shadow: 0 0 0 4px rgba(255, 77, 0, 0.09);
+      }
+      .floating-label label {
+        position: absolute;
+        left: 48px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        color: var(--gray-500);
+        font-weight: 500;
+        pointer-events: none;
+        transition: all 0.22s ease;
+        font-family: "Outfit", sans-serif;
+      }
+      .floating-label input:focus ~ label,
+      .floating-label input:not(:placeholder-shown) ~ label {
+        top: 12px;
+        transform: translateY(0);
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .floating-label input::placeholder {
+        color: transparent;
+      }
+      .input-icon-left {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 17px;
+        color: var(--gray-500);
+        pointer-events: none;
+        transition: color 0.25s;
+        z-index: 1;
+      }
+      .floating-label:focus-within .input-icon-left {
+        color: var(--primary);
+      }
+      .toggle-password {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 17px;
+        color: var(--gray-500);
+        padding: 4px;
+        transition: color 0.2s;
+        z-index: 1;
+        line-height: 1;
+      }
+      .toggle-password:hover {
+        color: var(--primary);
+      }
+
+      /* Options */
+      .form-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        margin-top: -2px;
+      }
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--gray-700);
+        user-select: none;
+      }
+      .remember-me input[type="checkbox"] {
+        display: none;
+      }
+      .checkmark {
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .remember-me input:checked ~ .checkmark {
+        background: var(--primary);
+        border-color: var(--primary);
+        box-shadow: 0 2px 8px rgba(255, 77, 0, 0.3);
+      }
+      .remember-me input:checked ~ .checkmark::after {
+        content: "✓";
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .forgot-link {
+        font-size: 13px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .forgot-link:hover {
+        opacity: 0.75;
+      }
+
+      /* Submit */
+      .btn-login {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: #fff;
+        font-size: 15.5px;
+        font-weight: 700;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition: all 0.3s ease;
+        box-shadow:
+          0 8px 24px rgba(255, 77, 0, 0.38),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+        font-family: "Outfit", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-login .btn-arrow {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        transition: transform 0.3s ease;
+      }
+      .btn-login::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -110%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.18),
+          transparent
+        );
+        animation: shimmer 2.5s infinite;
+      }
+      .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px rgba(255, 77, 0, 0.48);
+      }
+      .btn-login:hover .btn-arrow {
+        transform: translateX(4px);
+      }
+      .btn-login:active {
+        transform: translateY(0);
+      }
+
+      /* Footer */
+      .login-footer {
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .login-footer p {
+        font-size: 13.5px;
+        color: var(--gray-500);
+      }
+      .login-footer a {
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .terms {
+        margin-top: 14px;
+        font-size: 11px;
+        color: #c0c0cc;
+        text-align: center;
+        line-height: 1.7;
+      }
+      .terms a {
+        color: var(--gray-500);
+      }
+
+      /* Scrollbar */
+      .right-panel::-webkit-scrollbar {
+        width: 4px;
+      }
+      .right-panel::-webkit-scrollbar-thumb {
+        background: var(--gray-300);
+        border-radius: 4px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 960px) {
+        .left-panel {
+          display: none;
+        }
+        .right-panel {
+          width: 100%;
+          padding: 48px 32px;
+        }
+      }
+      @media (max-width: 480px) {
+        .right-panel {
+          padding: 36px 20px;
+        }
+        .login-header h2 {
+          font-size: 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="bg-mesh"></div>
+      <div class="grid-overlay"></div>
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+
+      <div class="brand">
+        <div class="brand-logo-wrap">
+          <div class="brand-logo">⚡</div>
+        </div>
+        <div class="brand-name">Sport<span>Zone</span></div>
+        <div class="brand-tagline">Performance Gear</div>
+      </div>
+
+      <div class="stat-bar">
+        <div class="stat-item">
+          <div class="stat-num">50<span>K+</span></div>
+          <div class="stat-label">Khách hàng</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200<span>+</span></div>
+          <div class="stat-label">Thương hiệu</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4.9<span>★</span></div>
+          <div class="stat-label">Đánh giá</div>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon orange">🏃</div>
+          <div class="feature-text">
+            <h4>Hàng chính hãng 100%</h4>
+            <p>Nike, Adidas, Puma và nhiều thương hiệu lớn</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon blue">🚀</div>
+          <div class="feature-text">
+            <h4>Giao hàng nhanh toàn quốc</h4>
+            <p>Nhận hàng trong 24–48 giờ</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon green">🔄</div>
+          <div class="feature-text">
+            <h4>Đổi trả miễn phí 30 ngày</h4>
+            <p>Không hài lòng, hoàn tiền 100%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="login-box">
+        <div class="login-header">
+          <div class="login-badge"><span>🔥</span> Ưu đãi hôm nay -20%</div>
+          <h2>Chào mừng<br />trở lại!</h2>
+          <p>Chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+        </div>
+
+        <!-- Social Login -->
+        <div class="social-login">
+          <button class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 48 48">
+              <path
+                fill="#EA4335"
+                d="M24 9.5c3.15 0 5.64 1.09 7.7 2.87l5.73-5.73C33.68 3.5 29.19 1.5 24 1.5 14.74 1.5 7.01 7.22 3.96 15.18l6.64 5.16C12.14 14.07 17.6 9.5 24 9.5z"
+              />
+              <path
+                fill="#4285F4"
+                d="M46.14 24.5c0-1.67-.15-3.28-.43-4.84H24v9.17h12.44c-.54 2.89-2.18 5.34-4.65 6.99l7.18 5.58C43.23 37.2 46.14 31.27 46.14 24.5z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M10.61 28.34A14.56 14.56 0 0 1 9.5 24c0-1.51.26-2.97.71-4.34l-6.64-5.16A23.5 23.5 0 0 0 .5 24c0 3.85.92 7.49 2.55 10.68l7.56-6.34z"
+              />
+              <path
+                fill="#34A853"
+                d="M24 46.5c5.16 0 9.5-1.71 12.66-4.65l-7.18-5.58c-1.74 1.17-3.97 1.86-5.48 1.86-6.37 0-11.82-4.57-13.39-10.79l-7.56 6.34C7.01 40.78 14.74 46.5 24 46.5z"
+              />
+            </svg>
+            Google
+          </button>
+          <button class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+            Facebook
+          </button>
+        </div>
+
+        <div class="divider"><span>hoặc đăng nhập bằng email</span></div>
+
+        <!-- Login Form -->
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <div class="floating-label">
+              <span class="input-icon-left">✉️</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="_"
+                autocomplete="email"
+                required
+              />
+              <label for="email">Địa chỉ email</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="floating-label">
+              <span class="input-icon-left">🔒</span>
+              <input
+                type="password"
+                id="password"
+                placeholder="_"
+                autocomplete="current-password"
+                required
+              />
+              <label for="password">Mật khẩu</label>
+              <button
+                type="button"
+                class="toggle-password"
+                onclick="togglePassword()"
+                title="Hiện/ẩn mật khẩu"
+              >
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" id="remember" />
+              <span class="checkmark"></span>
+              Ghi nhớ đăng nhập
+            </label>
+            <a href="#" class="forgot-link">Quên mật khẩu?</a>
+          </div>
+
+          <button type="submit" class="btn-login">
+            Đăng Nhập
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <p>Chưa có tài khoản? <a href="#">Tạo tài khoản miễn phí</a></p>
+        </div>
+
+        <p class="terms">
+          Khi đăng nhập, bạn đồng ý với
+          <a href="#">Điều khoản dịch vụ</a> và
+          <a href="#">Chính sách bảo mật</a> của SportZone.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function togglePassword() {
+        const input = document.getElementById("password");
+        const btn = document.querySelector(".toggle-password");
+        if (input.type === "password") {
+          input.type = "text";
+          btn.textContent = "🙈";
+        } else {
+          input.type = "password";
+          btn.textContent = "👁️";
+        }
+      }
+
+      function handleLogin(e) {
+        e.preventDefault();
+        const btn = document.querySelector(".btn-login");
+        btn.innerHTML = "<span>Đang đăng nhập...</span>";
+        btn.disabled = true;
+        btn.style.opacity = "0.85";
+        setTimeout(() => {
+          btn.innerHTML = "✅ Đăng nhập thành công!";
+          btn.style.background = "linear-gradient(135deg, #10b981, #34d399)";
+          btn.style.opacity = "1";
+          btn.style.boxShadow = "0 8px 24px rgba(16,185,129,0.35)";
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>
