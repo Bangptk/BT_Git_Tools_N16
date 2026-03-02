@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Liên Hệ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        
+        .contact-container {
+            background: #fff;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Phần thông tin bên trái */
+        .contact-info {
+            flex: 1;
+            padding: 40px;
+            background: #2d3436;
+            color: #fff;
+            min-width: 300px;
+        }
+
+        .contact-info h2 { margin-bottom: 30px; font-size: 28px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
+        .info-item i { font-size: 20px; margin-right: 15px; color: #00cec9; width: 25px; text-align: center; }
+        .info-item div p { font-size: 15px; line-height: 1.6; }
+        .info-item strong { display: block; font-size: 12px; color: #aaa; text-transform: uppercase; }
+
+        /* Phần Bản đồ & Form bên phải */
+        .contact-map-form { flex: 1.5; padding: 40px; min-width: 300px; }
+        
+        .map-box {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid #eee;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .contact-form button {
+            background: #00cec9;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .contact-form button:hover { background: #0984e3; }
+
+        /* Responsive cho điện thoại */
+        @media (max-width: 768px) {
+            .contact-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-container">
+    <div class="contact-info">
+        <h2>LIÊN HỆ</h2>
+        
+        <div class="info-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+                <strong>Số điện thoại</strong>
+                <p>0326 104 339</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+                <strong>Email</strong>
+                <p>trump@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+                <strong>Địa chỉ</strong>
+                <p>123 Đường Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-map-form">
+        <div class="map-box">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3919.460232428399!2d106.6970762153341!3d10.775658662148192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f385502812d%3A0x1d4139a0321282c1!2zMTIzIMSQLiBMw6ogTOG7o2ksIELhur_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1700000000000" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <form class="contact-form">
+            <input type="text" placeholder="Tên của bạn" required>
+            <input type="email" placeholder="Email liên hệ" required>
+            <textarea rows="4" placeholder="Lời nhắn..."></textarea>
+            <button type="submit">GỬI TIN NHẮN</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
