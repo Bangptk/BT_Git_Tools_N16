@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - SPROTSTORE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        nav a.active {
+            background-color: #ffeb3b;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            transition: transform 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .icon-btn .badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            padding: 12px 50px;
+            background-color: #fafafa;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            padding: 10px 20px;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .search-icon {
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 50px 0 30px 0;
+            color: #333;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background-color: #f5f5f5;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff4444;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            height: 42px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .add-to-cart-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .heart-icon {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background-color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .heart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .heart-icon.active {
+            color: #ff4444;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .shop-now-btn {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shop-now-btn:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                padding: 15px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .search-bar {
+                padding: 12px 20px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo">SPROTSTORE</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="brand.html">Brand</a>
+                <a href="category.html">Danh mục</a>
+                <a href="promotion.html" class="active">Khuyến mãi</a>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn" onclick="window.location.href='cart.html'">
+                    🛒
+                    <span class="badge">3</span>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='wishlist.html'" style="color: #ff4444;">
+                    ❤️
+                </button>
+                <button class="icon-btn" onclick="window.location.href='profile.html'">
+                    👤
+                </button>
+            </div>
+        </div>
+        <div class="search-bar">
+            <div class="search-container">
+                <span class="menu-icon">☰</span>
+                <input type="text" placeholder="Tìm kiếm sản phẩm, thương hiệu">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Wishlist</h1>
+
+        <!-- Wishlist Products -->
+        <div class="product-grid" id="wishlistGrid">
+            <!-- Product 1 -->
+            <div class="product-card" data-id="1">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" 
+                         alt="Nike lunar gato II"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23999%22%3ENike%3C/text%3E%3C/svg%3E'">
+                    <button class="remove-btn" onclick="removeFromWishlist(1)">✕</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Nike lunar gato II</div>
+                    <div class="product-footer">
+                        <div class="product-price">990.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(1)">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" data-id="2">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=400" 
+                         alt="Adidas Predator Elite"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f5f5f5%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23999%22%3EAdidas%3C/text%3E%3C/svg%3E'">
+                    <button class="remove-btn" onclick="removeFromWishlist(2)">✕</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Adidas Predator Elite</div>
+                    <div class="product-footer">
+                        <div class="product-price">6.000.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(2)">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" data-id="3">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400" 
+                         alt="Yonex Power Cushion Comfort Z3 Men"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ffe0e0%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23cc0000%22%3EYonex%3C/text%3E%3C/svg%3E'">
+                    <button class="remove-btn" onclick="removeFromWishlist(3)">✕</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Yonex Power Cushion Comfort Z3 Men</div>
+                    <div class="product-footer">
+                        <div class="product-price">2.799.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(3)">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" data-id="4">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400" 
+                         alt="Giày cầu lông Lining"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23fff0f0%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23ff6b6b%22%3ELining%3C/text%3E%3C/svg%3E'">
+                    <button class="remove-btn" onclick="removeFromWishlist(4)">✕</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Giày cầu lông Lining AYZJ0021-1</div>
+                    <div class="product-footer">
+                        <div class="product-price">2.090.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(4)">🛒</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recently Viewed Section -->
+        <h2 class="section-title">Đã từng xem qua</h2>
+        <div class="product-grid">
+            <!-- Recently Viewed Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400" 
+                         alt="Giày cầu lông Lining"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f9f9f9%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23bbb%22%3ELining%3C/text%3E%3C/svg%3E'">
+                    <button class="heart-icon" onclick="toggleWishlist(this)">🤍</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Giày cầu lông Lining AYZJ0021-1</div>
+                    <div class="product-footer">
+                        <div class="product-price">2.090.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('rv1')">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Viewed Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=400" 
+                         alt="Vợt cầu lông Lining"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23f9f9f9%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23bbb%22%3EVợt%3C/text%3E%3C/svg%3E'">
+                    <button class="heart-icon" onclick="toggleWishlist(this)">🤍</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Vợt cầu lông Lining Bladex 900</div>
+                    <div class="product-footer">
+                        <div class="product-price">4.090.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('rv2')">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Viewed Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" 
+                         alt="Balo Yonex"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23e0f7fa%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%2300695c%22%3EBalo%3C/text%3E%3C/svg%3E'">
+                    <button class="heart-icon" onclick="toggleWishlist(this)">🤍</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Balo Yonex BAG2412BEX - Dark Emerald</div>
+                    <div class="product-footer">
+                        <div class="product-price">2.259.000 VNĐ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('rv3')">🛒</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Remove from wishlist
+        function removeFromWishlist(productId) {
+            const card = document.querySelector(`.product-card[data-id="${productId}"]`);
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    card.remove();
+                    checkEmptyWishlist();
+                    showToast('Đã xóa khỏi danh sách yêu thích');
+                }, 300);
+            }
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            showToast('Đã thêm vào giỏ hàng');
+            // Update cart badge
+            const badge = document.querySelector('.icon-btn .badge');
+            if (badge) {
+                const currentCount = parseInt(badge.textContent);
+                badge.textContent = currentCount + 1;
+            }
+        }
+
+        // Toggle wishlist for recently viewed items
+        function toggleWishlist(button) {
+            button.classList.toggle('active');
+            if (button.textContent === '🤍') {
+                button.textContent = '❤️';
+                button.classList.add('active');
+                showToast('Đã thêm vào danh sách yêu thích');
+            } else {
+                button.textContent = '🤍';
+                button.classList.remove('active');
+                showToast('Đã xóa khỏi danh sách yêu thích');
+            }
+        }
+
+        // Check if wishlist is empty
+        function checkEmptyWishlist() {
+            const wishlistGrid = document.getElementById('wishlistGrid');
+            if (wishlistGrid.children.length === 0) {
+                wishlistGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">💔</div>
+                        <h2>Danh sách yêu thích trống</h2>
+                        <p>Bạn chưa có sản phẩm yêu thích nào</p>
+                        <button class="shop-now-btn" onclick="window.location.href='shop.html'">
+                            Khám phá ngay
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Toast notification
+        function showToast(message) {
+            let toast = document.querySelector('.toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 14px 28px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                `;
+                document.body.appendChild(toast);
+            }
+            
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
