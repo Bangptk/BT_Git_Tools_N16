@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Profile - Cửa Hàng Giày</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+        }
+
+        .profile-info {
+            margin-bottom: 15px;
+        }
+
+        .profile-info div {
+            margin: 8px 0;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .profile-info label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .profile-info span {
+            display: block;
+            font-size: 15px;
+            margin-top: 3px;
+        }
+
+        .edit-profile-btn {
+            background-color: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .edit-profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background-color: #e0e0e0;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background-color: white;
+            padding: 25px 15px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .settings-section {
+            padding: 30px;
+        }
+
+        .settings-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-title::before {
+            content: "🔔";
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .setting-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .setting-info p {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .slider.disabled {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+            .profile-container {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar">
+                👤
+            </div>
+            <div class="profile-info">
+                <div>
+                    <label>EMAIL USER</label>
+                    <span>tvjuian2004@gmail.com</span>
+                </div>
+                <div>
+                    <label>PHONE NUMBER USER</label>
+                    <span>0123456789</span>
+                </div>
+            </div>
+            <button class="edit-profile-btn" onclick="editProfile()">Chỉnh sửa hồ sơ</button>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value">25</div>
+                <div class="stat-label">Tổng đơn hàng</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value">2</div>
+                <div class="stat-label">Đang xử lý</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">❤️</div>
+                <div class="stat-value">5</div>
+                <div class="stat-label">Yêu thích</div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <h2 class="settings-title">Cài đặt thông báo</h2>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Thông báo qua Email</h3>
+                    <p>Nhận cập nhật đơn hàng và khuyến mại qua email</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emailNotif" checked onchange="toggleNotification('email', this.checked)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Thông báo qua SMS</h3>
+                    <p>Nhận tin nhắn về trạng thái đơn hàng</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="smsNotif" checked onchange="toggleNotification('sms', this.checked)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Thông báo đẩy</h3>
+                    <p>Nhận thông báo các ưu đãi trên thiết bị của bạn</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pushNotif" onchange="toggleNotification('push', this.checked)">
+                    <span class="slider disabled"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function editProfile() {
+            alert('Chức năng chỉnh sửa hồ sơ đang được phát triển!');
+            // Có thể chuyển hướng đến trang chỉnh sửa profile
+            // window.location.href = 'edit-profile.html';
+        }
+
+        function toggleNotification(type, enabled) {
+            console.log(`${type} notification ${enabled ? 'enabled' : 'disabled'}`);
+            
+            // Hiển thị thông báo cho người dùng
+            const messages = {
+                email: enabled ? 'Đã bật thông báo qua Email' : 'Đã tắt thông báo qua Email',
+                sms: enabled ? 'Đã bật thông báo qua SMS' : 'Đã tắt thông báo qua SMS',
+                push: enabled ? 'Đã bật thông báo đẩy' : 'Đã tắt thông báo đẩy'
+            };
+            
+            // Tạo toast notification
+            showToast(messages[type]);
+        }
+
+        function showToast(message) {
+            // Tạo element toast nếu chưa có
+            let toast = document.querySelector('.toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    z-index: 1000;
+                `;
+                document.body.appendChild(toast);
+            }
+            
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
